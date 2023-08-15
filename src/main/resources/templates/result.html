@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/dist/css/bootstrap.css}">
+</head>
+<body>
+<h1>Expression result</h1>
+
+<h3 id="brackets" th:text="${exprDto.ib}"></h3>
+<h3 id="validation_result" th:text="${exprDto.vr}"></h3>
+
+<form action="store" method="post">
+    <table>
+        <tr>
+            <td><label for="expression">Expression: </label></td>
+            <td><input id="expression" type="text" th:value="${exprDto.expression}" name="expr" readonly></td>
+        </tr>
+        <tr>
+            <td><label for="result">Result = </label></td>
+            <td><input id="result" th:value="${exprDto.result}" readonly></td>
+        </tr>
+        <tr>
+            <td><input id="save-button" th:type="${exprDto.type}" value="Save to DB"
+                       th:class="${exprDto.buttonClass}"></td>
+            <td><a href="/" class="btn btn-info">Back</a></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>
