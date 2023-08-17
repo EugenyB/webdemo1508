@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="e : ${expressions}">
+    <tr th:each="e : ${expressions}" th:id="'row'+${e.id}">
         <td th:text="${e.id}"></td>
         <td th:text="${e.expr}"></td>
         <td th:text="${e.result}"></td>
