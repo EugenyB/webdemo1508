@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Web Expressions</title>
@@ -11,6 +11,23 @@
     <input type="text" id="formula" name="expression" class="text-input" required>
     <input id="calculate-button" type="submit" value="calculate" class="btn btn-primary">
 </form>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-primary">
+    <tr>
+        <th>#</th>
+        <th>Expression</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="e : ${expressions}">
+        <td th:text="${e.id}"></td>
+        <td th:text="${e.expr}"></td>
+        <td th:text="${e.result}"></td>
+    </tr>
+    </tbody>
+</table>
 <script th:src="@{webjars/jquery/3.7.0/dist/jquery.js}"></script>
 <script th:src="@{webjars/popperjs__core/2.11.8/dist/umd/popper.js}"></script>
 <script th:src="@{webjars/bootstrap/5.3.0/dist/js/bootstrap.bundle.js}"></script>
