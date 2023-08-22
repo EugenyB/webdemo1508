@@ -5,6 +5,8 @@ import lombok.Data;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
+import java.util.Optional;
+
 @Data
 @AllArgsConstructor
 public class ExpressionDTO {
@@ -14,17 +16,17 @@ public class ExpressionDTO {
 
 
     public String getResult() {
-        Expression expr = new ExpressionBuilder(expression).build();
-        if (expr.validate().isValid()) {
-            return String.format("%6.3f", expr.evaluate());
+        Optional<Expression> expr = checkAndValid(expression);
+        if (expr.isPresent()) {
+            return String.format("%6.3f", expr.get().evaluate());
         } else {
             return "can't calculate";
         }
     }
 
     public String getButtonClass() {
-        Expression expr = new ExpressionBuilder(expression).build();
-        if (expr.validate().isValid()) {
+        Optional<Expression> expr = checkAndValid(expression);
+        if (expr.isPresent()) {
             return "btn btn-success";
         } else {
             return "btn btn-danger";
@@ -32,11 +34,23 @@ public class ExpressionDTO {
     }
 
     public String getType() {
-        Expression expr = new ExpressionBuilder(expression).build();
-        if (expr.validate().isValid()) {
+        Optional<Expression> expr = checkAndValid(expression);
+        if (expr.isPresent()) {
             return "submit";
         } else {
             return "button";
         }
+    }
+
+    public Optional<Expression> checkAndValid(String expression) {
+        try {
+            Expression expr = new ExpressionBuilder(expression).build();
+            if (expr.validate().isValid()) {
+                return Optional.of(expr);
+            } else return Optional.empty();
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+
     }
 }

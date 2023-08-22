@@ -32,9 +32,13 @@ public class ExpressionService {
     }
 
     public boolean isCorrect(String expression) {
-        Expression expr = new ExpressionBuilder(expression).build();
-        ValidationResult result = expr.validate();
-        return result.isValid();
+        if (check(expression, '(', ')')) {
+            ExpressionBuilder builder = new ExpressionBuilder(expression);
+            Expression expr = builder.build();
+            ValidationResult result = expr.validate();
+            return result.isValid();
+        }
+        return false;
     }
 
     public void saveToDB(String s, double res) {
