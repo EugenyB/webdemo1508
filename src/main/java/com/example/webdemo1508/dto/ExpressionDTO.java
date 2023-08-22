@@ -42,7 +42,7 @@ public class ExpressionDTO {
         }
     }
 
-    public Optional<Expression> checkAndValid(String expression) {
+    private Optional<Expression> checkAndValid(String expression) {
         try {
             Expression expr = new ExpressionBuilder(expression).build();
             if (expr.validate().isValid()) {
